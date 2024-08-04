@@ -33,17 +33,16 @@ public class AdServletGetPost extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long lastId = 0L;
+        Long lastId = 1L;
         String name = req.getParameter("name");
         String model = req.getParameter("model");
         String cost = req.getParameter("cost");
         String url = req.getParameter("url");
 
         List<Advertisement> advertisements = service.readAdvertisements();
-        if (!advertisements.isEmpty()) {
+        if (!advertisements.isEmpty() && advertisements.size()>1) {
             lastId = advertisements.get((advertisements.size() - 1)).getId();
         }
-        new Advertisement();
         advertisements.add(Advertisement.builder()
                         .id(lastId + 1)
                         .name(name)
