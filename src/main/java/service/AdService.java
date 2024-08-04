@@ -15,9 +15,10 @@ public class AdService {
     private static final Path STORAGE_PATH = Paths.get("C:\\Users\\Toxae\\IdeaProjects\\servletTask\\src\\main\\webapp\\yaml\\storage.yaml");
 
     private static AdService instance;
-    ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+    ObjectMapper mapper;
 
     private AdService() {
+        mapper = new ObjectMapper(new YAMLFactory());
     }
 
     public static AdService getInstance() {
@@ -41,5 +42,4 @@ public class AdService {
         advertisementList.removeIf(x -> x.getId().equals(id));
         writeAdvertisements(advertisementList);
     }
-
 }
