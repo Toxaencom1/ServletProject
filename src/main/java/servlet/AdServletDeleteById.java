@@ -1,9 +1,9 @@
-package servlets;
+package servlet;
 
-import lombok.SneakyThrows;
 import service.AdService;
 import template.HtmlGenerator;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,12 +13,14 @@ import java.io.IOException;
 
 @WebServlet("/ad/delete/*")
 public class AdServletDeleteById extends HttpServlet {
+
     private AdService service;
 
-    @SneakyThrows
     @Override
     public void init() throws ServletException {
-        service = AdService.getInstance();
+        super.init();
+        ServletContext servletContext = getServletContext();
+        service = (AdService) servletContext.getAttribute("service");
     }
 
     @Override

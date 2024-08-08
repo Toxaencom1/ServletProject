@@ -1,9 +1,10 @@
-package servlets;
+package servlet;
 
 import model.Advertisement;
 import service.AdService;
 import template.HtmlGenerator;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +21,9 @@ public class AdServletGetPost extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        service = AdService.getInstance();
+        super.init();
+        ServletContext servletContext = getServletContext();
+        service = (AdService) servletContext.getAttribute("service");
     }
 
     @Override
@@ -40,15 +43,15 @@ public class AdServletGetPost extends HttpServlet {
         String url = req.getParameter("url");
 
         List<Advertisement> advertisements = service.readAdvertisements();
-        if (!advertisements.isEmpty() && advertisements.size()>1) {
+        if (!advertisements.isEmpty() && advertisements.size() > 1) {
             lastId = advertisements.get((advertisements.size() - 1)).getId();
         }
         advertisements.add(Advertisement.builder()
-                        .id(lastId + 1)
-                        .name(name)
-                        .model(model)
-                        .cost( Double.parseDouble(cost))
-                        .url(url)
+                .id(lastId + 1)
+                .name(name)
+                .model(model)
+                .cost(Double.parseDouble(cost))
+                .url(url)
                 .build());
         service.writeAdvertisements(advertisements);
 
