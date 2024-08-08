@@ -26,7 +26,11 @@ public class AdService {
         }
     }
 
-    public void deleteAdvertisementsById(Long id) throws IOException {
-        adDao.deleteAdvertisementsById(id);
+    public void deleteAdvertisementsById(Long id) {
+        try {
+            adDao.deleteAdvertisementsById(id);
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+        }
     }
 }
