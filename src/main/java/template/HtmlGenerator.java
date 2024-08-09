@@ -19,6 +19,7 @@ public class HtmlGenerator {
                 <body>
                 <div id="main">
                     <form action="/ad" method="post">
+                        <h3>Create Advertisement</h3>
                         <label for="name">Name: </label>
                         <input id="name" name="name" type="text"><br><br>
                         <label for="model">Model: </label>
@@ -30,28 +31,41 @@ public class HtmlGenerator {
                         <button type="submit">Save</button>
                     </form>
                 </div>
-                <div id="list">
+                <div class="list">
         """;
         html.append(top);
-        for (Advertisement ad : advertisements) {
-            String listString = """
-                        <div class="element">
-                            <p id="name-%d">Name: %s</p>
-                            <p id="model-%d">Model: %s</p>
-                            <p id="cost-%d">Cost: %s </p>
-                            <form action="/ad/delete/%d" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <button id="delete-%d"type="submit">Delete Ad</button>
-                            </form>
-                            <img id="url-%d" class="images" src="%s" alt="Wrong URL of car photo"></img>
-                        </div>
+        if (!advertisements.isEmpty()) {
+            for (int i = 0; i < advertisements.size(); i++) {
+                if (i!=0 && i%6==0){
+                    html.append("</div>\n<div class=\"list\">");
+                }
+                Advertisement ad = advertisements.get(i);
+                String listString = """
+                            <div class="element">
+                                <p id="name-%d">Name: %s</p>
+                                <p id="model-%d">Model: %s</p>
+                                <p id="cost-%d">Cost: %s </p>
+                                <form action="/ad/delete/%d" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button id="delete-%d"type="submit">Delete Ad</button>
+                                </form>
+                                <img id="url-%d" class="images" src="%s" alt="Wrong URL of car photo"></img>
+                            </div>
+                        """;
+                html.append(String.format(listString,
+                        ad.getId(), ad.getName(),
+                        ad.getId(), ad.getModel(),
+                        ad.getId(), ad.getCost(),
+                        ad.getId(), ad.getId(),
+                        ad.getId(), ad.getUrl()));
+            }
+        } else {
+            String empty = """
+                    <div class="empty">
+                    <h3> DataBase is empty.</h3>
+                    </div>
                     """;
-            html.append(String.format(listString,
-                    ad.getId(),ad.getName(),
-                    ad.getId(),ad.getModel(),
-                    ad.getId(),ad.getCost(),
-                    ad.getId(),ad.getId(),
-                    ad.getId(),ad.getUrl()));
+            html.append(empty);
         }
         String bottom = """
                 </div>
