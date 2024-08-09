@@ -28,9 +28,8 @@ public class AdServletGetPost extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         String htmlPage = HtmlGenerator.generateHtml(service.readAdvertisements());
-        resp.setContentType("text/html");
+        resp.setContentType("text/html; charset=UTF-8");
         resp.getWriter().write(htmlPage);
     }
 
@@ -55,8 +54,8 @@ public class AdServletGetPost extends HttpServlet {
                 .build());
         service.writeAdvertisements(advertisements);
 
-        String htmlPage = HtmlGenerator.generateHtml(advertisements);
-        resp.setContentType("text/html");
-        resp.getWriter().write(htmlPage);
+        resp.setStatus(201);
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.sendRedirect("/ad");
     }
 }

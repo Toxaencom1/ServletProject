@@ -1,7 +1,6 @@
 package servlet;
 
 import service.AdService;
-import template.HtmlGenerator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -30,8 +29,6 @@ public class AdServletDeleteById extends HttpServlet {
 
         service.deleteAdvertisementsById(itemId);
 
-        String htmlPage = HtmlGenerator.generateHtml(service.readAdvertisements());
-        resp.setContentType("text/html");
-        resp.getWriter().write(htmlPage);
+        resp.sendRedirect("/ad");
     }
 }

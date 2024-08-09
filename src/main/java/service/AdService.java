@@ -6,6 +6,7 @@ import model.Advertisement;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -14,8 +15,13 @@ public class AdService {
     private final AdDao adDao;
 
 
-    public List<Advertisement> readAdvertisements() throws IOException {
-        return adDao.readAdvertisements();
+    public List<Advertisement> readAdvertisements() {
+        try {
+            return adDao.readAdvertisements();
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+            return new ArrayList<>();
+        }
     }
 
     public void writeAdvertisements(List<Advertisement> advertisements) {
