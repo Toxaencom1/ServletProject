@@ -4,6 +4,8 @@ import model.Advertisement;
 
 import java.util.List;
 
+// Deprecated Class
+
 public class HtmlGenerator {
 
     public static  String generateHtml(List<Advertisement> advertisements) {

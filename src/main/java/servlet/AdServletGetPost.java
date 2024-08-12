@@ -2,7 +2,6 @@ package servlet;
 
 import model.Advertisement;
 import service.AdService;
-import template.HtmlGenerator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -28,9 +27,9 @@ public class AdServletGetPost extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String htmlPage = HtmlGenerator.generateHtml(service.readAdvertisements());
-        resp.setContentType("text/html; charset=UTF-8");
-        resp.getWriter().write(htmlPage);
+        List<Advertisement> advertisementList = service.readAdvertisements();
+        req.setAttribute("elements", advertisementList);
+        req.getRequestDispatcher("/jsp/ads.jsp").forward(req, resp);
     }
 
     @Override
