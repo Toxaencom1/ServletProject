@@ -1,6 +1,7 @@
 package servlet;
 
-import service.AdService;
+import model.User;
+import service.UserService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -9,31 +10,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
-@WebServlet("/ad/delete/*")
-public class AdServletDeleteById extends HttpServlet {
+@WebServlet("/reg")
+public class RegistrationServlet extends HttpServlet {
 
-    private AdService service;
+    private UserService service;
 
     @Override
     public void init() throws ServletException {
         super.init();
         ServletContext servletContext = getServletContext();
-        service = (AdService) servletContext.getAttribute("adService");
+        service = (UserService) servletContext.getAttribute("userService");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/ad");
+        req.getRequestDispatcher("/jsp/registration.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String pathInfo = req.getPathInfo();
-        Long itemId = Long.parseLong(pathInfo.substring(1));
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
 
-        service.deleteAdvertisementsById(itemId);
+        service.addUser(User.builder()
+                        .id(UUID.randomUUID())
+                        .login(login)
+                        .password(password)
+                .build());
 
-        resp.sendRedirect("/ad");
+        resp.sendRedirect("/login");
     }
 }

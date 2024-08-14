@@ -14,7 +14,7 @@
 
 .list {
     display: flex;
-    flex-wrap: wrap; /* Позволяет элементам переноситься на новую строку */
+    flex-wrap: wrap;
     border: black solid 1px;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -28,12 +28,12 @@
     box-sizing: border-box;
 }
 
-.element:nth-child(7n) {
+.element:nth-child(6n) {
     margin-right: 0;
 }
 
 #no-ads-message {
-    display: none; /* По умолчанию сообщение скрыто */
+    display: none;
     font-size: 18px;
     color: red;
     margin-top: 20px;

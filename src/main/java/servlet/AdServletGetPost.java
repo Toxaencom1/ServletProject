@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet("/ad")
 public class AdServletGetPost extends HttpServlet {
@@ -22,7 +24,7 @@ public class AdServletGetPost extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         ServletContext servletContext = getServletContext();
-        service = (AdService) servletContext.getAttribute("service");
+        service = (AdService) servletContext.getAttribute("adService");
     }
 
     @Override
@@ -44,8 +46,11 @@ public class AdServletGetPost extends HttpServlet {
         if (!advertisements.isEmpty() && advertisements.size() > 1) {
             lastId = advertisements.get((advertisements.size() - 1)).getId();
         }
+        HttpSession session = req.getSession();
+        UUID userId = (UUID) session.getAttribute("userId");
         advertisements.add(Advertisement.builder()
                 .id(lastId + 1)
+                .userId(userId)
                 .name(name)
                 .model(model)
                 .cost(Double.parseDouble(cost))
