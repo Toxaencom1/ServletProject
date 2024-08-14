@@ -1,6 +1,7 @@
 package servlet;
 
 import model.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import service.UserService;
 
 import javax.servlet.ServletContext;
@@ -16,12 +17,14 @@ import java.util.UUID;
 public class RegistrationServlet extends HttpServlet {
 
     private UserService service;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void init() throws ServletException {
         super.init();
         ServletContext servletContext = getServletContext();
         service = (UserService) servletContext.getAttribute("userService");
+        passwordEncoder = (BCryptPasswordEncoder) servletContext.getAttribute("bCrypt");
     }
 
     @Override
@@ -34,10 +37,12 @@ public class RegistrationServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
+        String encodedPassword = passwordEncoder.encode(password);
+
         service.addUser(User.builder()
                         .id(UUID.randomUUID())
                         .login(login)
-                        .password(password)
+                        .password(encodedPassword)
                 .build());
 
         resp.sendRedirect("/login");

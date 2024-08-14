@@ -1,6 +1,7 @@
 package servlet;
 
 import model.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import service.UserService;
 
 import javax.servlet.ServletContext;
@@ -18,12 +19,14 @@ import java.util.Optional;
 public class LoginServlet extends HttpServlet {
 
     private UserService service;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public void init() throws ServletException {
         super.init();
         ServletContext servletContext = getServletContext();
         service = (UserService) servletContext.getAttribute("userService");
+        passwordEncoder = (BCryptPasswordEncoder) servletContext.getAttribute("bCrypt");
     }
 
     @Override
@@ -33,12 +36,13 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        String inputLogin = req.getParameter("login");
+        String inputPassword = req.getParameter("password");
 
         List<User> allUsers = service.getAllUsers();
         Optional<User> identifiedUser = allUsers.stream()
-                .filter(x -> x.getLogin().equals(login) && x.getPassword().equals(password))
+                .filter(login -> login.getLogin().equals(inputLogin))
+                .filter(user-> passwordEncoder.matches(inputPassword, user.getPassword()))
                 .findFirst();
 
         HttpSession session = req.getSession();
