@@ -15,7 +15,8 @@
             <label>Password:
                 <input name="password" type="password">
             </label><br><br>
-            <button type="submit">Log in</button> or
+            <button type="submit">Log in</button>
+            or
             <a href="${pageContext.request.contextPath}/reg" class="button">Register</a>
         </form>
     </fieldset>

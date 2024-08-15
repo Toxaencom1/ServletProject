@@ -1,9 +1,13 @@
 [ {
   "id" : "0a58569e-144a-4f04-948d-a4a761b88328",
-  "login" : "test",
+  "login" : "Test",
   "password" : "$2a$10$2gyVyzQ2uHAjLuJT0X6E5.fUNNmAPQHOy9sI0IhINry16tFWhr7QG"
 }, {
   "id" : "0651a9d6-8255-4f5b-89a3-846251e72d42",
-  "login" : "taxah",
+  "login" : "TaXaH",
   "password" : "$2a$10$kfJJo0X4xMG97etIdJs49ew3ujtlGcJuo2l4T6LC6Eae5Cr31X4hu"
+}, {
+  "id" : "423fc717-aef9-43b6-9514-3e533fb2dc68",
+  "login" : "Valera",
+  "password" : "$2a$10$D0DnLiVDQBWctDPw5zYnp.Xy9QHJjuH/IxBLvzTEvBdAtqtLB5m.a"
 } ]

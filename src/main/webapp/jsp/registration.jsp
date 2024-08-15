@@ -10,12 +10,13 @@
         <h3>Register</h3>
         <form action="${pageContext.request.contextPath}/reg" method="post">
             <label>Login:
-                <input name="login" type="text" >
+                <input name="login" type="text">
             </label><br><br>
             <label>Password:
                 <input name="password" type="password">
             </label><br><br>
-            <button type="submit">Register</button> or
+            <button type="submit">Register</button>
+            or
             <a href="${pageContext.request.contextPath}/login" class="button">Back to Login page.</a>
         </form>
     </fieldset>

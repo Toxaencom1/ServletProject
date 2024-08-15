@@ -32,7 +32,7 @@ public class AdService {
         }
     }
 
-    public void deleteAdvertisementsById(Long id) {
+    public void deleteAdvertisementById(Long id) {
         try {
             adDao.deleteAdvertisementsById(id);
         } catch (IOException e) {

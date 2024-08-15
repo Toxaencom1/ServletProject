@@ -1,6 +1,7 @@
 package servlet;
 
 import model.User;
+import model.dto.AccountIdentifierDTO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import service.UserService;
 
@@ -41,14 +42,19 @@ public class LoginServlet extends HttpServlet {
 
         List<User> allUsers = service.getAllUsers();
         Optional<User> identifiedUser = allUsers.stream()
-                .filter(login -> login.getLogin().equals(inputLogin))
-                .filter(user-> passwordEncoder.matches(inputPassword, user.getPassword()))
+                .filter(login -> login.getLogin().equalsIgnoreCase(inputLogin))
+                .filter(user -> passwordEncoder.matches(inputPassword, user.getPassword()))
                 .findFirst();
+
 
         HttpSession session = req.getSession();
 
         if (identifiedUser.isPresent()) {
-            session.setAttribute("userId", identifiedUser.get().getId());
+            User user = identifiedUser.get();
+            session.setAttribute("user", AccountIdentifierDTO.builder()
+                    .id(user.getId())
+                    .login(user.getLogin())
+                    .build());
             resp.sendRedirect("/ad");
         } else {
             resp.sendRedirect("/login");

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class UserDAO {
-    private static final Path STORAGE_PATH = Paths.get("C:\\Users\\Toxae\\IdeaProjects\\servletTask\\src\\main\\webapp\\json\\users.json");
+    private static final Path STORAGE_PATH = Paths.get("..\\..\\..\\servletTask\\src\\main\\webapp\\json\\users.json");
 
     private final ObjectMapper mapper;
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class AdDao {
-    private static final Path STORAGE_PATH = Paths.get("C:\\Users\\Toxae\\IdeaProjects\\servletTask\\src\\main\\webapp\\yaml\\storage.yaml");
+    private static final Path STORAGE_PATH = Paths.get("..\\..\\..\\servletTask\\src\\main\\webapp\\yaml\\storage.yaml");
 
     private final ObjectMapper mapper;
 

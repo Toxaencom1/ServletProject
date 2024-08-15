@@ -8,6 +8,14 @@
     <link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
 </head>
 <body>
+
+<div id="account">
+    <fieldset>
+        <p>Welcome: <c:out value="${requestScope.login}"/></p>
+        <button id="logout" onclick="redirectToLogout()">Logout</button>
+    </fieldset>
+</div>
+
 <div id="main">
     <form action="${pageContext.request.contextPath}/ad" method="post">
         <h3>Create Advertisement</h3>
@@ -22,6 +30,9 @@
         <button type="submit">Save</button>
     </form>
 </div>
+
+<h3 style="text-align: center">Advertisements</h3>
+
 <div class="list">
     <c:forEach var="element" items="${requestScope.elements}">
         <div class="element">
@@ -39,6 +50,14 @@
 </div>
 </body>
 <script>
+    function redirectToLogout() {
+        var isConfirmed = confirm('Are you sure you want to logout?');
+
+        if (isConfirmed) {
+            window.location.href = '/logout';
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
         var elements = document.querySelectorAll('.list .element');
         var noAdsMessage = document.getElementById('no-ads-message');

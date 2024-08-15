@@ -32,7 +32,7 @@ public class AdServletDeleteById extends HttpServlet {
         String pathInfo = req.getPathInfo();
         Long itemId = Long.parseLong(pathInfo.substring(1));
 
-        service.deleteAdvertisementsById(itemId);
+        service.deleteAdvertisementById(itemId);
 
         resp.sendRedirect("/ad");
     }
