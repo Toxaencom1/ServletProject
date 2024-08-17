@@ -2,28 +2,22 @@ package dao;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import model.User;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
-@RequiredArgsConstructor
-public class UserDAO {
-    private static final Path STORAGE_PATH = Paths.get("..\\..\\..\\servletTask\\src\\main\\webapp\\json\\users.json");
 
-    private final ObjectMapper mapper;
+public class UserDAO extends BaseDAO<User, UUID> {
 
-    public List<User> getAllUsers() throws IOException {
-        return mapper.readValue(STORAGE_PATH.toFile(), new TypeReference<List<User>>() {
+    public UserDAO(File file, ObjectMapper mapper) {
+        super(file, mapper, new TypeReference<List<User>>() {
         });
     }
 
-    public void addUser(User user) throws IOException {
-        List<User> users = getAllUsers();
-        users.add(user);
-        mapper.writeValue(STORAGE_PATH.toFile(), users);
+    @Override
+    protected UUID getId(User user) {
+        return user.getId();
     }
 }
