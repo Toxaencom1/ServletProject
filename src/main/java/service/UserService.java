@@ -37,6 +37,17 @@ public class UserService {
                 .findFirst();
     }
 
+    public String containsLoginCheck(String login) {
+        List<User> allUsers = getAllUsers();
+        Optional<User> optionalUser = allUsers.stream()
+                .filter(user -> user.getLogin().equalsIgnoreCase(login))
+                .findFirst();
+        if (optionalUser.isPresent()) {
+            return "User with that login name already exists";
+        } else 
+            return null;
+    }
+
     public String encodePassword(String inputPassword) {
         return passwordEncoder.encode(inputPassword);
     }

@@ -27,6 +27,9 @@
         <input id="cost" name="cost" type="number" min="0"><br><br>
         <label for="url">Img: </label>
         <input id="url" name="url" type="text"><br><br>
+        <c:forEach var="error" items="${requestScope.errors}">
+            <h3 style="color: red">${error}</h3>
+        </c:forEach>
         <button type="submit">Save</button>
     </form>
 </div>

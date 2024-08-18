@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import dao.AdDAO;
 import dao.UserDAO;
+import model.validator.Validator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import service.AdService;
 import service.UserService;
@@ -22,6 +23,10 @@ public class AppConfig {
         ObjectMapper jsonMapper = new ObjectMapper(new JsonFactory());
         jsonMapper.enable(SerializationFeature.INDENT_OUTPUT);
         return jsonMapper;
+    }
+
+    public Validator createValidator() {
+        return new Validator();
     }
 
     public File getUserFile() {

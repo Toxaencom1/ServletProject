@@ -1,8 +1,6 @@
 package listener;
 
 import config.AppConfig;
-import service.AdService;
-import service.UserService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -18,10 +16,8 @@ public class InitializationListener implements ServletContextListener {
 
         AppConfig appConfig = new AppConfig();
 
-        AdService adService = appConfig.createAdService();
-        UserService userService = appConfig.createUserService();
-
-        servletContext.setAttribute("adService", adService);
-        servletContext.setAttribute("userService", userService);
+        servletContext.setAttribute("validator", appConfig.createValidator());
+        servletContext.setAttribute("adService", appConfig.createAdService());
+        servletContext.setAttribute("userService", appConfig.createUserService());
     }
 }
